@@ -23,4 +23,6 @@
       <ProjectReference Include="..\BlogManager.Core\BlogManager.Core.csproj" />
     </ItemGroup>
 
+
+
 </Project>

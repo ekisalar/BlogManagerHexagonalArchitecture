@@ -7,8 +7,16 @@
     </PropertyGroup>
 
 
+
     <ItemGroup>
-      <Folder Include="BlogAggregate\" />
+      <Folder Include="Events\" />
+      <Folder Include="Repositories\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="11.7.1" />
+      <PackageReference Include="Mapster" Version="7.3.0" />
+      <PackageReference Include="MediatR" Version="12.1.1" />
     </ItemGroup>
 
 </Project>
