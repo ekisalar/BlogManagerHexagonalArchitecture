@@ -19,7 +19,7 @@ public class UpdateBlogCommandHandler : IRequestHandler<UpdateBlogCommand, Updat
 
     public async Task<UpdateBlogResponseDto?> Handle(UpdateBlogCommand request, CancellationToken cancellationToken)
     {
-        var blogToUpdate = await _blogRepository.GetBlogByIdAsync(request.Id, false);
+        var blogToUpdate = await _blogRepository.GetBlogByIdAsync(request.Id, false, false);
         if (blogToUpdate is null)
             throw new Exception(ExceptionConstants.BlogNotFound);
         await Domain.Blog.UpdateAsync(blogToUpdate, request.AuthorId, request.Title, request.Description, request.Content);
