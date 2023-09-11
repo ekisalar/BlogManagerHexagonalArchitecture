@@ -1,11 +1,12 @@
-using BlogManager.Core.Commands.Blog;
+using BlogManager.Core.Commands.Author;
+using BlogManager.Core.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogManager.Adapter.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/[action]")]
 public class AuthorController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -15,13 +16,35 @@ public class AuthorController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost(Name = "CreateBlog")]
-    public async Task<IActionResult> CreateBlog([FromBody] CreateBlogCommand createBlogCommand)
+    [HttpPost]
+    public async Task<IActionResult> CreateAuthor([FromBody] CreateAuthorCommand createAuthorCommand)
     {
-       var result = await _mediator.Send(createBlogCommand);
+       var result = await _mediator.Send(createAuthorCommand);
         if (result != null)
             return Ok(result);
 
-        return BadRequest("Failed To Create The Blog");
+        return BadRequest("Failed To Create The Author");
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetAuthor([FromQuery]Guid id)
+    {
+        var getBlogByIdQuery = new GetAuthorByIdQuery(id);
+        var result           = await _mediator.Send(getBlogByIdQuery);
+        if (result != null)
+            return Ok(result);
+    
+        return BadRequest("Failed To Get The Author");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAuthorList()
+    {
+        var getBlogByIdQuery = new GetAuthorListQuery();
+        var result           = await _mediator.Send(getBlogByIdQuery);
+        if (result != null)
+            return Ok(result);
+
+        return BadRequest("Failed To Get The Author List");
     }
 }

@@ -23,8 +23,21 @@ public class BlogGetByIdTest
         var handler           = new GetBlogByIdQueryHandler(new BlogRepository(dbContext));
         var blogFromDbContext = await dbContext.Blogs.FirstAsync();
 
-        var result = await handler.Handle(new GetBlogByIdQuery() {Id = blogFromDbContext.Id}, new CancellationToken());
+        var result = await handler.Handle(new GetBlogByIdQuery(blogFromDbContext.Id), CancellationToken.None);
         result.Should().NotBeNull();
         result.Id.Should().Be(blogFromDbContext.Id);
+    }
+    
+    [Test]
+    public async Task BlogGetListTest_MustReturnCorrectBlogIncludeAuthorInfo()
+    {
+        var handler           = new GetBlogByIdQueryHandler(new BlogRepository(dbContext));
+        var blogFromDbContext = await dbContext.Blogs.FirstAsync();
+
+        var result = await handler.Handle(new GetBlogByIdQuery(blogFromDbContext.Id, true), CancellationToken.None);
+        result.Should().NotBeNull();
+        result.Id.Should().Be(blogFromDbContext.Id);
+        result.Author.Should().NotBeNull();
+        result.Author.Id.Should().Be(blogFromDbContext.Author.Id);
     }
 }

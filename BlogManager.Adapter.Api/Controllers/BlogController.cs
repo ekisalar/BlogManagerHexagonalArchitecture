@@ -1,11 +1,13 @@
 using BlogManager.Core.Commands.Blog;
+using BlogManager.Core.DTOs;
+using BlogManager.Core.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogManager.Adapter.Api.Controllers;
 
+[Route("[controller]/[action]")]
 [ApiController]
-[Route("[controller]")]
 public class BlogController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -23,5 +25,27 @@ public class BlogController : ControllerBase
             return Ok(result);
 
         return BadRequest("Failed To Create The Blog");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetBlog([FromQuery]string id, [FromQuery]bool authorInfo)
+    {
+        var getBlogByIdQuery = new GetBlogByIdQuery(Guid.Parse(id), authorInfo);
+        var result           = await _mediator.Send(getBlogByIdQuery);
+        if (result != null)
+            return Ok(result);
+
+        return BadRequest("Failed To Get The Blog");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetBlogList([FromQuery]bool authorInfo)
+    {
+        var getBlogListQuery = new GetBlogListQuery(authorInfo);
+        var result           = await _mediator.Send(getBlogListQuery);
+        if (result != null)
+            return Ok(result);
+    
+        return BadRequest("Failed To Get The Blog List");
     }
 }

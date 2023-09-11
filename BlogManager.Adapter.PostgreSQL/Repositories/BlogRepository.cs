@@ -1,5 +1,4 @@
 using BlogManager.Adapter.PostgreSQL.DbContext;
-using BlogManager.Core;
 using BlogManager.Core.Domain;
 using BlogManager.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -16,11 +15,13 @@ public class BlogRepository : IBlogRepository
     }
 
 
-    public async Task<Blog?> GetBlogByIdAsync(Guid id, bool asNoTracking = true)
+    public async Task<Blog?> GetBlogByIdAsync(Guid id, bool includeAuthorInfo, bool asNoTracking = true)
     {
         var query = _dbContext.Blogs.AsQueryable();
         if (asNoTracking)
             query = query.AsNoTracking();
+        if (includeAuthorInfo)
+            query = query.Include(b => b.Author);
         return await query.FirstOrDefaultAsync(b => b.Id == id);
     }
 

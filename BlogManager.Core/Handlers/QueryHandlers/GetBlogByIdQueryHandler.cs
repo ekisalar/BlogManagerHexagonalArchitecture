@@ -18,7 +18,7 @@ public class GetBlogByIdQueryHandler : IRequestHandler<GetBlogByIdQuery, BlogDto
 
     public async Task<BlogDto?> Handle(GetBlogByIdQuery request, CancellationToken cancellationToken)
     {
-        var blog = await _blogRepository.GetBlogByIdAsync(request.Id);
+        var blog = await _blogRepository.GetBlogByIdAsync(request.Id, request.IncludeAuthorInfo);
         return blog?.Adapt<BlogDto>();
     }
 }

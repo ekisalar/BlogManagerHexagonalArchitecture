@@ -3,7 +3,12 @@ using MediatR;
 
 namespace BlogManager.Core.Queries;
 
-public class GetBlogListQuery : IRequest<GetBlogListResponseDto>
+public class GetBlogListQuery : IRequest<List<BlogDto>?>
 {
-    public bool IncludeAuthorInfo { get; set; } = false;
+    public GetBlogListQuery(bool includeAuthorInfo)
+    {
+        IncludeAuthorInfo = includeAuthorInfo;
+    }
+
+    public bool IncludeAuthorInfo { get; set; }
 }

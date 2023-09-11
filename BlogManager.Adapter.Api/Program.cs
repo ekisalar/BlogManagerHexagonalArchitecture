@@ -1,8 +1,6 @@
-using System.Reflection;
 using System.Text.Json.Serialization;
 using BlogManager.Adapter.PostgreSQL.DbContext;
 using BlogManager.Adapter.PostgreSQL.Repositories;
-using BlogManager.Core;
 using BlogManager.Core.Commands.Blog;
 using BlogManager.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
-builder.Services.AddDbContext<IPostgreSqlDbContext, PostgreSqlDbContext>(c => c.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSql")));
+builder.Services.AddDbContext<IPostgreSqlDbContext, PostgreSqlDbContext>(c => c.UseNpgsql(builder.Configuration.GetConnectionString("BlogDB")));
 
 builder.Services.AddControllers()
        .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)

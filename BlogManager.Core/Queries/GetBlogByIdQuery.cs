@@ -3,7 +3,14 @@ using MediatR;
 
 namespace BlogManager.Core.Queries;
 
-public class GetBlogByIdQuery : IRequest<BlogDto>
+public class GetBlogByIdQuery : IRequest<BlogDto?>
 {
-    public Guid Id { get; set; }
+    public GetBlogByIdQuery(Guid id, bool includeAuthorInfo = false)
+    {
+        Id                = id;
+        IncludeAuthorInfo = includeAuthorInfo;
+    }
+
+    public Guid Id                { get; set; }
+    public bool IncludeAuthorInfo { get; set; }
 }

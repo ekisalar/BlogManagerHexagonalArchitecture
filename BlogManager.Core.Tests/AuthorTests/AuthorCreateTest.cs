@@ -20,11 +20,8 @@ public class AuthorCreateTest
     public async Task AuthorCreateTest_MustReturnCorrectNameAndSurname()
     {
         var authorCommandHandler = new CreateAuthorCommandHandler(new AuthorRepository(dbContext));
-        var createAuthorCommand = new CreateAuthorCommand
-                                  {
-                                      Name    = "TestName",
-                                      Surname = "TestSurname",
-                                  };
+        var createAuthorCommand  = new CreateAuthorCommand("TestName", "TestSurname");
+
         var result = await authorCommandHandler.Handle(createAuthorCommand, new CancellationToken());
         result.Should().NotBeNull();
         result.Id.Should().NotBeEmpty();
