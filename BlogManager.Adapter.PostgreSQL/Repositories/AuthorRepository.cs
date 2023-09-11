@@ -1,6 +1,7 @@
 using BlogManager.Adapter.PostgreSQL.DbContext;
 using BlogManager.Core;
 using BlogManager.Core.Domain;
+using BlogManager.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogManager.Adapter.PostgreSQL.Repositories;

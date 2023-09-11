@@ -1,6 +1,6 @@
 using BlogManager.Core.Domain;
 
-namespace BlogManager.Core;
+namespace BlogManager.Core.Repositories;
 
 public interface IBlogRepository
 {

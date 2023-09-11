@@ -1,5 +1,6 @@
 using BlogManager.Core.Commands.Blog;
 using BlogManager.Core.DTOs;
+using BlogManager.Core.Repositories;
 using MediatR;
 
 namespace BlogManager.Core.Handlers.CommandHandlers.Blog;

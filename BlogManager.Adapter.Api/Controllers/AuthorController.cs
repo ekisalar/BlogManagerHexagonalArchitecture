@@ -6,19 +6,19 @@ namespace BlogManager.Adapter.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class BlogController : ControllerBase
+public class AuthorController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public BlogController(IMediator mediator)
+    public AuthorController(IMediator mediator)
     {
         _mediator = mediator;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> CreateBlog([FromBody]CreateBlogCommand createBlogCommand)
+    [HttpPost(Name = "CreateBlog")]
+    public async Task<IActionResult> CreateBlog([FromBody] CreateBlogCommand createBlogCommand)
     {
-        var result = await _mediator.Send(createBlogCommand);
+       var result = await _mediator.Send(createBlogCommand);
         if (result != null)
             return Ok(result);
 

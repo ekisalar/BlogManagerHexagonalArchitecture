@@ -1,5 +1,6 @@
 using BlogManager.Core.DTOs;
 using BlogManager.Core.Queries;
+using BlogManager.Core.Repositories;
 using Mapster;
 using MediatR;
 

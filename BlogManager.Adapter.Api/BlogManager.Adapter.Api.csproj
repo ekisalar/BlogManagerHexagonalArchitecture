@@ -8,7 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.10" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
@@ -20,6 +22,8 @@
 
 
     <ItemGroup>
+      <ProjectReference Include="..\BlogManager.Adapter.PostgreSQL.Tests\BlogManager.Adapter.PostgreSQL.Tests.csproj" />
+      <ProjectReference Include="..\BlogManager.Adapter.PostgreSQL\BlogManager.Adapter.PostgreSQL.csproj" />
       <ProjectReference Include="..\BlogManager.Core\BlogManager.Core.csproj" />
     </ItemGroup>
 
