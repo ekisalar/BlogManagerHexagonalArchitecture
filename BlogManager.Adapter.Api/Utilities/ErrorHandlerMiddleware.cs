@@ -1,15 +1,18 @@
-﻿using System.Net;
-using System.Text.Json;
+﻿
+
+using System.Net;
+using BlogManager.Core;
+using Newtonsoft.Json;
 
 namespace BlogManager.Adapter.Api.Utilities
 {
     public class ErrorHandlerMiddleware
     {
-        private readonly RequestDelegate                 _next;
-        private readonly ILogger<ErrorHandlerMiddleware> _logger;
+        private readonly RequestDelegate    _next;
+        private readonly IBlogManagerLogger _logger;
 
 
-        public ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMiddleware> logger)
+        public ErrorHandlerMiddleware(RequestDelegate next, IBlogManagerLogger logger)
         {
             _next   = next;
             _logger = logger;
@@ -37,7 +40,7 @@ namespace BlogManager.Adapter.Api.Utilities
                 }
 
 
-                var result = JsonSerializer.Serialize(message);
+                var result = JsonConvert.SerializeObject(message);
 
                 await response.WriteAsync(result);
             }

@@ -27,8 +27,6 @@
 
 
     <ItemGroup>
-        <ProjectReference Include="..\BlogManager.Adapter.PostgreSQL.Tests\BlogManager.Adapter.PostgreSQL.Tests.csproj" />
-        <ProjectReference Include="..\BlogManager.Adapter.PostgreSQL\BlogManager.Adapter.PostgreSQL.csproj" />
         <ProjectReference Include="..\BlogManager.Core\BlogManager.Core.csproj"/>
     </ItemGroup>
 

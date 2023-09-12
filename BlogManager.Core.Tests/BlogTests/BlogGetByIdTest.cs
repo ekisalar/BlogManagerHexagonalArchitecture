@@ -1,27 +1,33 @@
 using BlockManager.Tests.Shared;
+using BlogManager.Adapter.Logger;
 using BlogManager.Adapter.PostgreSQL.DbContext;
 using BlogManager.Adapter.PostgreSQL.Repositories;
 using BlogManager.Core.Handlers.QueryHandlers;
 using BlogManager.Core.Queries;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace BlogManager.Core.Tests.BlogTests;
 
 public class BlogGetByIdTest
 {
-    private IBlogDbContext dbContext;
+    private IBlogDbContext           dbContext;
+    private Mock<IBlogManagerLogger> mockLogger;
+
 
     [SetUp]
     public async Task Setup()
     {
-        dbContext = await DbContextFactory.CreatePostgreSqlInMemoryDbContext();
+        dbContext  = await DbContextFactory.CreatePostgreSqlInMemoryDbContext();
+        mockLogger = new Mock<IBlogManagerLogger>();
+
     }
 
     [Test]
     public async Task BlogGeByIdTest_MustReturnCorrectBlog()
     {
-        var handler           = new GetBlogByIdQueryHandler(new BlogRepository(dbContext));
+        var handler           = new GetBlogByIdQueryHandler(new BlogRepository(dbContext), mockLogger.Object);
         var blogFromDbContext = await dbContext.Blogs.FirstAsync();
 
         var result = await handler.Handle(new GetBlogByIdQuery(blogFromDbContext.Id), CancellationToken.None);
@@ -32,7 +38,7 @@ public class BlogGetByIdTest
     [Test]
     public async Task BlogGetByIdTest_MustReturnCorrectBlogIncludeAuthorInfo()
     {
-        var handler           = new GetBlogByIdQueryHandler(new BlogRepository(dbContext));
+        var handler           = new GetBlogByIdQueryHandler(new BlogRepository(dbContext), new SerilogAdapter());
         var blogFromDbContext = await dbContext.Blogs.Include(b => b.Author).FirstAsync();
 
         var result = await handler.Handle(new GetBlogByIdQuery(blogFromDbContext.Id, true), CancellationToken.None);
@@ -49,7 +55,7 @@ public class BlogGetByIdTest
     [Test]
     public async Task BlogGeByIdTest_MustReturnNullForNonExistingBlogId()
     {
-        var handler           = new GetBlogByIdQueryHandler(new BlogRepository(dbContext));
+        var handler           = new GetBlogByIdQueryHandler(new BlogRepository(dbContext), new SerilogAdapter());
         var result = await handler.Handle(new GetBlogByIdQuery(Guid.NewGuid()), CancellationToken.None);
         result.Should().BeNull();
     }

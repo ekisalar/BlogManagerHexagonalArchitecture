@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogManager.Adapter.Applica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockManager.Tests.Shared", "BlockManager.Tests.Shared\BlockManager.Tests.Shared.csproj", "{09D01FC4-4AE6-45D8-9C1E-264CD4B06E58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogManager.Adapter.Logger", "BlogManager.Adapter.Logger\BlogManager.Adapter.Logger.csproj", "{1872A2BE-478A-42DD-B6BB-A763F449A346}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,7 @@ Global
 		{908D05F5-0A0C-4BCA-AD2A-21947F26776B} = {D1F05CA9-36D6-4DC5-93E5-AE25CCD707F6}
 		{DD90A7BE-E6D2-4AA7-BD41-8DF4D7B53C61} = {CE2685D4-90D9-4271-8F1A-14306EF4056A}
 		{09D01FC4-4AE6-45D8-9C1E-264CD4B06E58} = {D1F05CA9-36D6-4DC5-93E5-AE25CCD707F6}
+		{1872A2BE-478A-42DD-B6BB-A763F449A346} = {CE2685D4-90D9-4271-8F1A-14306EF4056A}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7E5BBCB4-A417-4933-B923-5E8700D52D51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -68,5 +71,9 @@ Global
 		{09D01FC4-4AE6-45D8-9C1E-264CD4B06E58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09D01FC4-4AE6-45D8-9C1E-264CD4B06E58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09D01FC4-4AE6-45D8-9C1E-264CD4B06E58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1872A2BE-478A-42DD-B6BB-A763F449A346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1872A2BE-478A-42DD-B6BB-A763F449A346}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1872A2BE-478A-42DD-B6BB-A763F449A346}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1872A2BE-478A-42DD-B6BB-A763F449A346}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

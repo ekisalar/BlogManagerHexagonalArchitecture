@@ -9,11 +9,13 @@ namespace BlogManager.Core.Handlers.CommandHandlers.Blog;
 
 public class UpdateBlogCommandHandler : IRequestHandler<UpdateBlogCommand, UpdateBlogResponseDto?>
 {
-    private readonly IBlogRepository _blogRepository;
+    private readonly IBlogRepository    _blogRepository;
+    private readonly IBlogManagerLogger _logger;
 
-    public UpdateBlogCommandHandler(IBlogRepository blogRepository)
+    public UpdateBlogCommandHandler(IBlogRepository blogRepository, IBlogManagerLogger logger)
     {
         _blogRepository = blogRepository;
+        _logger         = logger;
     }
 
 
@@ -23,8 +25,8 @@ public class UpdateBlogCommandHandler : IRequestHandler<UpdateBlogCommand, Updat
         if (blogToUpdate is null)
             throw new Exception(ExceptionConstants.BlogNotFound);
         await Domain.Blog.UpdateAsync(blogToUpdate, request.AuthorId, request.Title, request.Description, request.Content);
-
         var result = await _blogRepository.UpdateAsync(blogToUpdate);
+        _logger.LogInformation(LoggingConstants.BlogUpdatedSuccessfully);
         return result.Adapt<UpdateBlogResponseDto>();
     }
 }

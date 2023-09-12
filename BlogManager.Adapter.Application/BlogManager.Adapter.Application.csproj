@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\BlogManager.Adapter.Api\BlogManager.Adapter.Api.csproj" />
+      <ProjectReference Include="..\BlogManager.Adapter.Logger\BlogManager.Adapter.Logger.csproj" />
       <ProjectReference Include="..\BlogManager.Adapter.PostgreSQL\BlogManager.Adapter.PostgreSQL.csproj" />
       <ProjectReference Include="..\BlogManager.Core\BlogManager.Core.csproj" />
     </ItemGroup>

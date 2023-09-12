@@ -8,11 +8,13 @@ namespace BlogManager.Core.Handlers.CommandHandlers.Author;
 
 public class DeleteAuthorCommandHandler : IRequestHandler<DeleteAuthorCommand, DeleteAuthorResponseDto>
 {
-    private readonly IAuthorRepository _authorRepository;
+    private readonly IAuthorRepository  _authorRepository;
+    private readonly IBlogManagerLogger _blogManagerLogger;
 
-    public DeleteAuthorCommandHandler(IAuthorRepository authorRepository)
+    public DeleteAuthorCommandHandler(IAuthorRepository authorRepository, IBlogManagerLogger blogManagerLogger)
     {
-        _authorRepository = authorRepository;
+        _authorRepository  = authorRepository;
+        _blogManagerLogger = blogManagerLogger;
     }
 
 
@@ -23,6 +25,7 @@ public class DeleteAuthorCommandHandler : IRequestHandler<DeleteAuthorCommand, D
             throw new Exception(ExceptionConstants.AuthorNotFound);
         await Domain.Author.DeleteAsync(authorToDelete);
         await _authorRepository.DeleteAuthorAsync(authorToDelete);
+        _blogManagerLogger.LogInformation(LoggingConstants.AuthorDeletedSuccessfully);
         return new DeleteAuthorResponseDto() {Id = authorToDelete.Id};
     }
 }

@@ -1,26 +1,32 @@
 using BlockManager.Tests.Shared;
+using BlogManager.Adapter.Logger;
 using BlogManager.Adapter.PostgreSQL.DbContext;
 using BlogManager.Adapter.PostgreSQL.Repositories;
 using BlogManager.Core.Commands.Author;
 using BlogManager.Core.Handlers.CommandHandlers.Author;
 using FluentAssertions;
+using Moq;
 
 namespace BlogManager.Core.Tests.AuthorTests;
 
 public class AuthorCreateTest
 {
-    IBlogDbContext dbContext;
+    IBlogDbContext                   dbContext;
+    private Mock<IBlogManagerLogger> mockLogger;
+
 
     [SetUp]
     public async Task Setup()
     {
-        dbContext = await DbContextFactory.CreatePostgreSqlInMemoryDbContext();
+        dbContext  = await DbContextFactory.CreatePostgreSqlInMemoryDbContext();
+        mockLogger = new Mock<IBlogManagerLogger>();
+
     }
 
     [Test]
     public async Task AuthorCreateTest_MustReturnCorrectNameAndSurname()
     {
-        var authorCommandHandler = new CreateAuthorCommandHandler(new AuthorRepository(dbContext));
+        var authorCommandHandler = new CreateAuthorCommandHandler(new AuthorRepository(dbContext), mockLogger.Object);
         var createAuthorCommand  = new CreateAuthorCommand("TestName", "TestSurname");
 
         var result = await authorCommandHandler.Handle(createAuthorCommand, new CancellationToken());

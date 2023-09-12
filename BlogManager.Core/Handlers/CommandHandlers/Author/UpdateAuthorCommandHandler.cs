@@ -9,11 +9,13 @@ namespace BlogManager.Core.Handlers.CommandHandlers.Author;
 
 public class UpdateAuthorCommandHandler : IRequestHandler<UpdateAuthorCommand, UpdateAuthorResponseDto?>
 {
-    private readonly IAuthorRepository _authorRepository;
+    private readonly IAuthorRepository  _authorRepository;
+    private readonly IBlogManagerLogger _logger;
 
-    public UpdateAuthorCommandHandler(IAuthorRepository authorRepository)
+    public UpdateAuthorCommandHandler(IAuthorRepository authorRepository, IBlogManagerLogger logger)
     {
         _authorRepository = authorRepository;
+        _logger      = logger;
     }
 
 
@@ -24,6 +26,7 @@ public class UpdateAuthorCommandHandler : IRequestHandler<UpdateAuthorCommand, U
             throw new Exception(ExceptionConstants.AuthorNotFound);
         await Domain.Author.UpdateAsync(authorToUpdate, request.Name, request.Surname);
         var result = await _authorRepository.UpdateAsync(authorToUpdate);
+        _logger.LogInformation(LoggingConstants.AuthorUpdatedSuccessfully);
         return result.Adapt<UpdateAuthorResponseDto>();
     }
 }

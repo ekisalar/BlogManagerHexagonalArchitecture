@@ -8,11 +8,13 @@ namespace BlogManager.Core.Handlers.CommandHandlers.Blog;
 
 public class DeleteBlogCommandHandler : IRequestHandler<DeleteBlogCommand, DeleteBlogResponseDto>
 {
-    private readonly IBlogRepository _blogRepository;
+    private readonly IBlogRepository    _blogRepository;
+    private          IBlogManagerLogger _blogManagerLogger;
 
-    public DeleteBlogCommandHandler(IBlogRepository blogRepository)
+    public DeleteBlogCommandHandler(IBlogRepository blogRepository, IBlogManagerLogger blogManagerLogger)
     {
-        _blogRepository = blogRepository;
+        _blogRepository         = blogRepository;
+        _blogManagerLogger = blogManagerLogger;
     }
 
 
@@ -23,6 +25,7 @@ public class DeleteBlogCommandHandler : IRequestHandler<DeleteBlogCommand, Delet
             throw new Exception(ExceptionConstants.BlogNotFound);
         await Domain.Blog.DeleteAsync(blogToDelete);
         await _blogRepository.DeleteBlogAsync(blogToDelete);
+        _blogManagerLogger.LogInformation(LoggingConstants.BlogDeletedSuccessfully, blogToDelete);
         return new DeleteBlogResponseDto() {Id = blogToDelete.Id};
     }
 }

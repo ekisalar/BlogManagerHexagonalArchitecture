@@ -1,27 +1,33 @@
 using BlockManager.Tests.Shared;
+using BlogManager.Adapter.Logger;
 using BlogManager.Adapter.PostgreSQL.DbContext;
 using BlogManager.Adapter.PostgreSQL.Repositories;
 using BlogManager.Core.Commands.Author;
 using BlogManager.Core.Handlers.CommandHandlers.Author;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace BlogManager.Core.Tests.AuthorTests;
 
 public class AuthorUpdateTest
 {
-    private IBlogDbContext dbContext;
+    private IBlogDbContext           dbContext;
+    private Mock<IBlogManagerLogger> mockLogger;
+
 
     [SetUp]
     public async Task Setup()
     {
-        dbContext = await DbContextFactory.CreatePostgreSqlInMemoryDbContext();
+        dbContext  = await DbContextFactory.CreatePostgreSqlInMemoryDbContext();
+        mockLogger = new Mock<IBlogManagerLogger>();
+
     }
 
     [Test]
     public async Task AuthorUpdateTest_MustReturnCorrectIdAndTitle()
     {
-        var authorUpdateHandler = new UpdateAuthorCommandHandler(new AuthorRepository(dbContext));
+        var authorUpdateHandler = new UpdateAuthorCommandHandler(new AuthorRepository(dbContext), mockLogger.Object);
         var authorToUpdate      = await dbContext.Authors.FirstAsync();
         var updateAuthorCommand = new UpdateAuthorCommand()
                                   {
