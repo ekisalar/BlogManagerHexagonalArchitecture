@@ -21,9 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\BlogManager.Adapter.Api\BlogManager.Adapter.Api.csproj" />
-      <ProjectReference Include="..\BlogManager.Adapter.EventSourcing\BlogManager.Adapter.EventSourcing.csproj" />
       <ProjectReference Include="..\BlogManager.Adapter.PostgreSQL\BlogManager.Adapter.PostgreSQL.csproj" />
-      <ProjectReference Include="..\BlogManager.Adapter.RabbitMq\BlogManager.Adapter.RabbitMq.csproj" />
       <ProjectReference Include="..\BlogManager.Core\BlogManager.Core.csproj" />
     </ItemGroup>
 

@@ -1,43 +1,41 @@
-using System.Reflection;
 using System.Text.Json.Serialization;
-using BlogManager.Adapter.PostgreSQL.DbContext;
-using BlogManager.Adapter.PostgreSQL.Repositories;
+using BlogManager.Adapter.Api.Controllers;
+using BlogManager.Adapter.Api.Utilities;
 using BlogManager.Core.Commands.Blog;
-using BlogManager.Core.Repositories;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace BlogManager.Adapter.Api;
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
-builder.Services.AddScoped<IBlogRepository, BlogRepository>();
-builder.Services.AddDbContext<IPostgreSqlDbContext, PostgreSqlDbContext>(c => c.UseNpgsql(builder.Configuration.GetConnectionString("BlogDB")));
-
-builder.Services.AddControllers()
-       .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
-       .AddJsonOptions(options => { options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; });
-
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateBlogCommand)));
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+public class ApiAdapter
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    private WebApplication _app;
+
+    public ApiAdapter(string[] args, Action<IServiceCollection> options)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+
+        options.Invoke(builder.Services);
+        // builder.Services.AddControllers();
+        builder.Services.AddControllers()
+               .AddApplicationPart(typeof(BlogController).Assembly)
+               .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
+               .AddJsonOptions(options => { options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; });
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+        builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateBlogCommand>());
+        
+        _app = builder.Build();
+        
+        _app.UseSwagger();
+        _app.UseSwaggerUI();
+        _app.UseHttpsRedirection();
+        _app.UseAuthorization();
+        _app.UseMiddleware<ErrorHandlerMiddleware>();
+        _app.MapControllers();
+    }
+
+    public Task StartAsync()
+    {
+        return _app.RunAsync();
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();

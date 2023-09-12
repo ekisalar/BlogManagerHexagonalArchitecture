@@ -1,3 +1,4 @@
+using BlockManager.Tests.Shared;
 using BlogManager.Adapter.PostgreSQL.DbContext;
 using BlogManager.Adapter.PostgreSQL.Repositories;
 using BlogManager.Core.Handlers.QueryHandlers;
@@ -9,7 +10,7 @@ namespace BlogManager.Core.Tests.BlogTests;
 
 public class BlogGetByIdTest
 {
-    private IPostgreSqlDbContext dbContext;
+    private IBlogDbContext dbContext;
 
     [SetUp]
     public async Task Setup()
@@ -37,7 +38,19 @@ public class BlogGetByIdTest
         var result = await handler.Handle(new GetBlogByIdQuery(blogFromDbContext.Id, true), CancellationToken.None);
         result.Should().NotBeNull();
         result.Id.Should().Be(blogFromDbContext.Id);
+        result.AuthorId.Should().Be(blogFromDbContext.AuthorId);
+        result.Content.Should().Be(blogFromDbContext.Content);
         result.Author.Should().NotBeNull();
         result.Author.Id.Should().Be(blogFromDbContext.Author.Id);
+        result.Author.Name.Should().Be(blogFromDbContext.Author.Name);
+        result.Author.Surname.Should().Be(blogFromDbContext.Author.Surname);
+    }
+    
+    [Test]
+    public async Task BlogGeByIdTest_MustReturnNullForNonExistingBlogId()
+    {
+        var handler           = new GetBlogByIdQueryHandler(new BlogRepository(dbContext));
+        var result = await handler.Handle(new GetBlogByIdQuery(Guid.NewGuid()), CancellationToken.None);
+        result.Should().BeNull();
     }
 }

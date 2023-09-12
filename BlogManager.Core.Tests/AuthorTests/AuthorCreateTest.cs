@@ -1,3 +1,4 @@
+using BlockManager.Tests.Shared;
 using BlogManager.Adapter.PostgreSQL.DbContext;
 using BlogManager.Adapter.PostgreSQL.Repositories;
 using BlogManager.Core.Commands.Author;
@@ -8,7 +9,7 @@ namespace BlogManager.Core.Tests.AuthorTests;
 
 public class AuthorCreateTest
 {
-    IPostgreSqlDbContext dbContext;
+    IBlogDbContext dbContext;
 
     [SetUp]
     public async Task Setup()

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlogManager.Adapter.PostgreSQL.DbContext;
 
-public interface IPostgreSqlDbContext
+public interface IBlogDbContext
 {
     DbSet<Blog>   Blogs   { get; set; }
     DbSet<Author> Authors { get; set; }

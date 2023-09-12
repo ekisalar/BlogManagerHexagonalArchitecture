@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <OutputType>Library</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
@@ -26,7 +27,6 @@
 
 
     <ItemGroup>
-        <ProjectReference Include="..\BlogManager.Adapter.EventSourcing\BlogManager.Adapter.EventSourcing.csproj" />
         <ProjectReference Include="..\BlogManager.Adapter.PostgreSQL.Tests\BlogManager.Adapter.PostgreSQL.Tests.csproj" />
         <ProjectReference Include="..\BlogManager.Adapter.PostgreSQL\BlogManager.Adapter.PostgreSQL.csproj" />
         <ProjectReference Include="..\BlogManager.Core\BlogManager.Core.csproj"/>

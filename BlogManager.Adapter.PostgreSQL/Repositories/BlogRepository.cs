@@ -7,9 +7,9 @@ namespace BlogManager.Adapter.PostgreSQL.Repositories;
 
 public class BlogRepository : IBlogRepository
 {
-    private readonly IPostgreSqlDbContext _dbContext;
+    private readonly IBlogDbContext _dbContext;
 
-    public BlogRepository(IPostgreSqlDbContext dbContext)
+    public BlogRepository(IBlogDbContext dbContext)
     {
         _dbContext = dbContext;
     }

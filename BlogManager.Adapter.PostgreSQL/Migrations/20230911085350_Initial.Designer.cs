@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BlogManager.Adapter.PostgreSQL.Migrations
 {
-    [DbContext(typeof(PostgreSqlDbContext))]
+    [DbContext(typeof(BlogDbContext))]
     [Migration("20230911085350_Initial")]
     partial class Initial
     {

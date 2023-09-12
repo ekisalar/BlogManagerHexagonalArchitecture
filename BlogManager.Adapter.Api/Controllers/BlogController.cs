@@ -1,5 +1,4 @@
 using BlogManager.Core.Commands.Blog;
-using BlogManager.Core.DTOs;
 using BlogManager.Core.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

@@ -2,21 +2,21 @@ using BlogManager.Adapter.PostgreSQL.DbContext;
 using BlogManager.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlogManager.Core.Tests;
+namespace BlockManager.Tests.Shared;
 
 public static class DbContextFactory
 {
-    public static async Task<PostgreSqlDbContext> CreatePostgreSqlInMemoryDbContext()
+    public static async Task<BlogDbContext> CreatePostgreSqlInMemoryDbContext()
     {
-        var optionsBuilder = new DbContextOptionsBuilder<PostgreSqlDbContext>()
+        var optionsBuilder = new DbContextOptionsBuilder<BlogDbContext>()
            .UseInMemoryDatabase("PostgreSqlInMemoryDatabase");
 
-        var dbContext = new PostgreSqlDbContext(optionsBuilder.Options);
+        var dbContext = new BlogDbContext(optionsBuilder.Options);
         await GenerateInitialDataAsync(dbContext);
         return dbContext;
     }
 
-    private static async Task GenerateInitialDataAsync(PostgreSqlDbContext dbContext)
+    private static async Task GenerateInitialDataAsync(BlogDbContext dbContext)
     {
         await dbContext.Authors.AddRangeAsync(await Author.CreateAsync("TestName 1", "TestSurname 1"),
                                               await Author.CreateAsync("TestName 2", "TestSurname 2"),

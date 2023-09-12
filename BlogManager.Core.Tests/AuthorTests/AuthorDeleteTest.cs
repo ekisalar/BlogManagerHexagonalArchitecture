@@ -1,3 +1,4 @@
+using BlockManager.Tests.Shared;
 using BlogManager.Adapter.PostgreSQL.DbContext;
 using BlogManager.Adapter.PostgreSQL.Repositories;
 using BlogManager.Core.Commands.Author;
@@ -9,7 +10,7 @@ namespace BlogManager.Core.Tests.AuthorTests;
 
 public class AuthorDeleteTest
 {
-    private IPostgreSqlDbContext dbContext;
+    private IBlogDbContext dbContext;
 
     [SetUp]
     public async Task Setup()
