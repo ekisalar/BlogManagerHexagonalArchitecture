@@ -22,7 +22,12 @@ public class GetBlogByIdQueryHandler : IRequestHandler<GetBlogByIdQuery, BlogDto
     public async Task<BlogDto?> Handle(GetBlogByIdQuery request, CancellationToken cancellationToken)
     {
         var blog = await _blogRepository.GetBlogByIdAsync(request.Id, request.IncludeAuthorInfo);
-        _logger.LogInformation(LoggingConstants.BlogGetSuccessfully);
+        if (blog == null)
+        {
+            _logger.LogInformation($"Blog with ID {request.Id} not found.");
+            return null;
+        }
+        _logger.LogInformation($"Blog with ID {request.Id} retrieved successfully.");
         return blog?.Adapt<BlogDto>();
     }
 }

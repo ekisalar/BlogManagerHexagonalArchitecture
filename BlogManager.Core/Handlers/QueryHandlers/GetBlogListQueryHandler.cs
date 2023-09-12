@@ -21,7 +21,12 @@ public class GetBlogListQueryHandler : IRequestHandler<GetBlogListQuery, List<Bl
     public async Task<List<BlogDto>?> Handle(GetBlogListQuery request, CancellationToken cancellationToken)
     {
         var blogs = await _blogRepository.GetAllBlogsAsync(request.IncludeAuthorInfo);
-        _logger.LogInformation(LoggingConstants.BlogListGetSuccessfully, blogs);
+        if (blogs == null)
+        {
+            _logger.LogInformation("No Blogs found.");
+            return null;
+        }
+        _logger.LogInformation($"{blogs.Count} Blogs retrieved successfully.");
         return blogs?.Adapt<List<BlogDto>>();
     }
 }

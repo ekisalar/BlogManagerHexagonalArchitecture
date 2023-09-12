@@ -26,7 +26,7 @@ public class UpdateBlogCommandHandler : IRequestHandler<UpdateBlogCommand, Updat
             throw new Exception(ExceptionConstants.BlogNotFound);
         await Domain.Blog.UpdateAsync(blogToUpdate, request.AuthorId, request.Title, request.Description, request.Content);
         var result = await _blogRepository.UpdateAsync(blogToUpdate);
-        _logger.LogInformation(LoggingConstants.BlogUpdatedSuccessfully);
+        _logger.LogInformation($"Blog with ID {request.Id} updated successfully.");
         return result.Adapt<UpdateBlogResponseDto>();
     }
 }

@@ -21,7 +21,7 @@ public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, C
     {
         var authorToCreate = await Domain.Author.CreateAsync(request.Name, request.Surname);
         var addAuthorAsync = await _authorRepository.AddAuthorAsync(authorToCreate);
-        _logger.LogInformation(LoggingConstants.AuthorCreatedSuccessfully);
+        _logger.LogInformation($"Author with ID {addAuthorAsync.Id} created successfully.");
 
         return new CreateAuthorResponseDto() {Id = addAuthorAsync.Id};
     }

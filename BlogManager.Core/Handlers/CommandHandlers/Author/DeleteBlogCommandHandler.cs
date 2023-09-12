@@ -25,7 +25,7 @@ public class DeleteAuthorCommandHandler : IRequestHandler<DeleteAuthorCommand, D
             throw new Exception(ExceptionConstants.AuthorNotFound);
         await Domain.Author.DeleteAsync(authorToDelete);
         await _authorRepository.DeleteAuthorAsync(authorToDelete);
-        _blogManagerLogger.LogInformation(LoggingConstants.AuthorDeletedSuccessfully);
+        _blogManagerLogger.LogInformation($"Author with ID {request.Id}  deleted successfully.");
         return new DeleteAuthorResponseDto() {Id = authorToDelete.Id};
     }
 }

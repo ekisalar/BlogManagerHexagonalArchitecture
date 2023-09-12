@@ -21,8 +21,12 @@ public class GetAuthorListQueryHandler : IRequestHandler<GetAuthorListQuery, Lis
     public async Task<List<AuthorDto>?> Handle(GetAuthorListQuery request, CancellationToken cancellationToken)
     {
         var authors = await _authorRepository.GetAllAuthorsAsync();
-        _logger.LogInformation(LoggingConstants.AuthorListGetSuccessfully);
-
+        if (authors == null)
+        {
+            _logger.LogInformation("No Authors found.");
+            return null;
+        }
+        _logger.LogInformation($"{authors.Count} Authors retrieved successfully.");
         return authors?.Adapt<List<AuthorDto>>();
     }
 }

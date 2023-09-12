@@ -26,24 +26,43 @@ namespace BlogManager.Adapter.Api.Utilities
             }
             catch (Exception error)
             {
-                _logger.LogError(error.StackTrace, $"Error Occured on {context.Request.Method}:{context.Request.Path.Value}");
+                _logger.LogError($"Error occurred on {context.Request.Method}:{context.Request.Path.Value}", error);
 
                 var response = context.Response;
-                string message;
                 response.ContentType = "application/json";
+        
+                string         message;
+                HttpStatusCode statusCode;
+
                 switch (error)
                 {
+                    case UnauthorizedAccessException _:
+                        statusCode = HttpStatusCode.Unauthorized;
+                        message    = "Unauthorized";
+                        break;
+
+                    // ... other custom exception types
+
                     default:
-                        response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        message             = error.InnerException != null ? error.InnerException.Message : error.Message;
+                        statusCode = HttpStatusCode.InternalServerError;
+                        message    = UnwrapException(error);
                         break;
                 }
 
+                response.StatusCode = (int)statusCode;
 
-                var result = JsonConvert.SerializeObject(message);
-
+                var result = JsonConvert.SerializeObject(new { message });
                 await response.WriteAsync(result);
             }
+        }
+        
+        private string UnwrapException(Exception ex)
+        {
+            if (ex.InnerException != null)
+            {
+                return UnwrapException(ex.InnerException);
+            }
+            return ex.Message;
         }
     }
 }

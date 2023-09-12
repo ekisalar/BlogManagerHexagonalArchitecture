@@ -8,7 +8,7 @@ namespace BlogManager.Core.Handlers.CommandHandlers.Blog;
 
 public class CreateBlogCommandHandler : IRequestHandler<CreateBlogCommand, CreateBlogResponseDto?>
 {
-    private readonly IBlogRepository _blogRepository;
+    private readonly IBlogRepository    _blogRepository;
     private readonly IBlogManagerLogger _logger;
 
     public CreateBlogCommandHandler(IBlogRepository blogRepository, IBlogManagerLogger logger)
@@ -21,7 +21,7 @@ public class CreateBlogCommandHandler : IRequestHandler<CreateBlogCommand, Creat
     {
         var blogToCreate   = await Domain.Blog.CreateAsync(request.AuthorId, request.Title, request.Description, request.Content);
         var blogNewCreated = await _blogRepository.AddBlogAsync(blogToCreate);
-        _logger.LogInformation(LoggingConstants.BlogCreatedSuccessfully);
+        _logger.LogInformation($"Blog with ID {blogNewCreated.Id} created successfully");
         return new CreateBlogResponseDto() {Id = blogNewCreated.Id};
     }
 }

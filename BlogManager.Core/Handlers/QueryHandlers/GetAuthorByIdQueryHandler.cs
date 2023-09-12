@@ -22,7 +22,13 @@ public class GetAuthorByIdQueryHandler : IRequestHandler<GetAuthorByIdQuery, Aut
     public async Task<AuthorDto?> Handle(GetAuthorByIdQuery request, CancellationToken cancellationToken)
     {
         var author = await _authorRepository.GetAuthorByIdAsync(request.Id);
-        _logger.LogInformation(LoggingConstants.AuthorGetSuccessfully);
+        if (author == null)
+        {
+            _logger.LogInformation($"Author with ID {request.Id} not found.");
+            return null;
+        }
+
+        _logger.LogInformation($"Author with ID {request.Id} retrieved successfully.");
         return author?.Adapt<AuthorDto>();
     }
 }

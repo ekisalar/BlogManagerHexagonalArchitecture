@@ -26,7 +26,7 @@ public class UpdateAuthorCommandHandler : IRequestHandler<UpdateAuthorCommand, U
             throw new Exception(ExceptionConstants.AuthorNotFound);
         await Domain.Author.UpdateAsync(authorToUpdate, request.Name, request.Surname);
         var result = await _authorRepository.UpdateAsync(authorToUpdate);
-        _logger.LogInformation(LoggingConstants.AuthorUpdatedSuccessfully);
+        _logger.LogInformation($"Author with ID {request.Id} updated successfully.");
         return result.Adapt<UpdateAuthorResponseDto>();
     }
 }

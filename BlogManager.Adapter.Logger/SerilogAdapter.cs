@@ -16,11 +16,7 @@ public class SerilogAdapter : IBlogManagerLogger
         _logger.Information(message);
     }
 
-    public void LogInformation(string message, params object?[] args)
-    {
-        _logger.Information(message, args);
-    }
-
+   
     public void LogWarning(string message)
     {
         _logger.Warning(message);
