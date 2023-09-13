@@ -5,12 +5,12 @@
 ### Technologies and Patterns Used
 - Hexagonal Architecture (Ports and Adapters)
 - PostgreSQL Database
-- Code-First Auto-Migration
+- Code-First Auto-Migration DB Update when Application Starts
 - CQRS Pattern with Mediator
 - In-Memory Database for DbContext Testing
 - Separate Test Projects for Loosely Coupled Adapters and Ports
 - NUnit and Fluent Assertions
-- Support for Both JSON and XML Requests and Responses
+- Support for Both JSON and XML Requests and Responses by setting header to `Accept: application/json` or `Accept: application/xml`
 - Dockerization
 - Logging via Serilog
 - Exception Handling Middleware with Logging
@@ -25,6 +25,8 @@
 
 The project is built on a Hexagonal (Ports and Adapters) Architecture and is organized into two main folders:
 
+![](image/Screenshot 2023-09-14 at 01.33.01.png)
+
 ### Source Folder (`src`)
 - BlogManager.Core
 - BlogManager.Adapter.Api
@@ -37,6 +39,7 @@ The project is built on a Hexagonal (Ports and Adapters) Architecture and is org
 - BlogManager.Adapter.Api.Test
 - BlogManager.Adapter.PostgreSQL.Test
 - BlogManager.Adapter.Logger.Test
+- BlogManager.Tests.Shared
 
 The API project serves as the driver side of the application, while the PostgreSQL and Logger projects function as the driven sides.
 
@@ -46,26 +49,19 @@ The API project serves as the driver side of the application, while the PostgreS
 - Command and Query Handlers are located in the Core project, which also serves as the access point for Repositories.
 - Application project serves as the entry point and thus has dependencies on all other projects to eliminate the API project's direct dependency on PostgreSQL repositories.
 
-![ProArchitectureject ](./BlogManagerHexagonalArchitecture.png)
+![ProArchitectureject](./image/BlogManagerHexagonalArchitecture.png)
 
 ## Test Coverage
 
 The application boasts over 90% test code coverage. Tests for repositories and the core project use an in-memory database, eliminating the need for actual database dependencies.
 
+![TestCoverage](./image/TestCoverage.png)
+
 ## System Requirements
 
 - Docker
-- Docker Compose
 
 ## Installation and Usage
-
-First, navigate to your terminal and execute the following Docker commands:
-
-```bash
-docker-compose down
-docker-compose build --no-cache
-docker-compose up
-```
 
 To clone the repository, run:
 
@@ -73,3 +69,16 @@ To clone the repository, run:
 git clone https://github.com/ekisalar/BlogManagerHexagonalArchitecture
 cd BlogManagerHexagonalArchitecture
 ```
+
+Navigate to your terminal and execute the following Docker commands:
+
+```bash
+docker-compose down
+docker-compose build --no-cache
+docker-compose up
+```
+
+- The API will be available at http://localhost:8080/swagger/index.html
+- The PostgreSQL database will be available at localhost:5432
+
+
