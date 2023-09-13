@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogManager.Adapter.Postgre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogManager.Adapter.Application", "BlogManager.Adapter.Application\BlogManager.Adapter.Application.csproj", "{DD90A7BE-E6D2-4AA7-BD41-8DF4D7B53C61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockManager.Tests.Shared", "BlockManager.Tests.Shared\BlockManager.Tests.Shared.csproj", "{09D01FC4-4AE6-45D8-9C1E-264CD4B06E58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogManager.Tests.Shared", "BlogManager.Tests.Shared\BlogManager.Tests.Shared.csproj", "{09D01FC4-4AE6-45D8-9C1E-264CD4B06E58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogManager.Adapter.Logger", "BlogManager.Adapter.Logger\BlogManager.Adapter.Logger.csproj", "{1872A2BE-478A-42DD-B6BB-A763F449A346}"
 EndProject

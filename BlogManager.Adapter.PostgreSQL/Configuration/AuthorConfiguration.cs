@@ -8,7 +8,7 @@ public class AuthorConfiguration : IEntityTypeConfiguration<Author>
 {
     public void Configure(EntityTypeBuilder<Author> builder)
     {
-        builder.ToTable("Tables");
+        builder.ToTable("Authors");
         builder.HasKey(b => b.Id);
         builder.Property(b => b.Id).UseIdentityAlwaysColumn();
         builder.Property(b => b.Name).HasMaxLength(100).IsRequired();

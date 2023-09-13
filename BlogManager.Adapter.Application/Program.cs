@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
+﻿
 using BlogManager.Adapter.Api;
 using BlogManager.Adapter.Logger;
 using BlogManager.Adapter.PostgreSQL.DbContext;
@@ -11,8 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 var configuration = new ConfigurationBuilder()
-                   .SetBasePath(AppContext.BaseDirectory) // Set the base path to your application's directory
-                   .AddJsonFile("appsettings.json") // Load configuration from appsettings.json
+                   .SetBasePath(AppContext.BaseDirectory) 
+                   .AddJsonFile("appsettings.json") 
                    .Build();
 
 var api = new ApiAdapter(args, options =>
@@ -24,4 +23,3 @@ var api = new ApiAdapter(args, options =>
 });
 
 await api.StartAsync();
-Console.WriteLine("Hello, World!");
