@@ -14,7 +14,7 @@ namespace BlogManager.Adapter.Api.Tests
         [Test]
         public async Task CreateBlog_ReturnsOkResult()
         {
-            // Arrange
+            
             var mediatorMock      = new Mock<IMediator>();
             var createBlogCommand = new CreateBlogCommand(Guid.NewGuid(), "TestTitle", "Test Description", "TestContent");
             var expectedResult    = new CreateBlogResponseDto();
@@ -24,10 +24,10 @@ namespace BlogManager.Adapter.Api.Tests
 
             var controller = new BlogController(mediatorMock.Object);
 
-            // Act
+            
             var actionResult = await controller.CreateBlog(createBlogCommand);
 
-            // Assert
+            
             var okResult = actionResult.Should().BeOfType<OkObjectResult>().Subject;
             var blogDto  = okResult.Value.Should().BeOfType<CreateBlogResponseDto>().Subject;
 
@@ -37,7 +37,7 @@ namespace BlogManager.Adapter.Api.Tests
         [Test]
         public async Task CreateBlog_ReturnsBadRequest()
         {
-            // Arrange
+            
             var mediatorMock      = new Mock<IMediator>();
             var createBlogCommand = new CreateBlogCommand(Guid.NewGuid(), "TestTitle", "Test Description", "TestContent");
 
@@ -46,17 +46,17 @@ namespace BlogManager.Adapter.Api.Tests
 
             var controller = new BlogController(mediatorMock.Object);
 
-            // Act
+            
             var actionResult = await controller.CreateBlog(createBlogCommand);
 
-            // Assert
+            
             actionResult.Should().BeOfType<BadRequestObjectResult>();
         }
 
         [Test]
         public async Task GetBlog_ReturnsOkResult()
         {
-            // Arrange
+            
             var mediatorMock   = new Mock<IMediator>();
             var blogId         = Guid.NewGuid();
             var authorInfo     = true;
@@ -67,10 +67,10 @@ namespace BlogManager.Adapter.Api.Tests
 
             var controller = new BlogController(mediatorMock.Object);
 
-            // Act
+            
             var actionResult = await controller.GetBlog(blogId.ToString(), authorInfo);
 
-            // Assert
+            
             var okResult = actionResult.Should().BeOfType<OkObjectResult>().Subject;
             var blogDto  = okResult.Value.Should().BeOfType<BlogDto>().Subject;
 
@@ -80,7 +80,7 @@ namespace BlogManager.Adapter.Api.Tests
         [Test]
         public async Task GetBlog_ReturnsBadRequest()
         {
-            // Arrange
+            
             var mediatorMock = new Mock<IMediator>();
             var blogId       = Guid.NewGuid();
             var authorInfo   = true;
@@ -90,17 +90,17 @@ namespace BlogManager.Adapter.Api.Tests
 
             var controller = new BlogController(mediatorMock.Object);
 
-            // Act
+            
             var actionResult = await controller.GetBlog(blogId.ToString(), authorInfo);
 
-            // Assert
+            
             actionResult.Should().BeOfType<BadRequestObjectResult>();
         }
 
         [Test]
         public async Task GetBlogList_ReturnsOkResult()
         {
-            // Arrange
+            
             var mediatorMock   = new Mock<IMediator>();
             var authorInfo     = true;
             var expectedResult = new List<BlogDto>();
@@ -110,10 +110,10 @@ namespace BlogManager.Adapter.Api.Tests
 
             var controller = new BlogController(mediatorMock.Object);
 
-            // Act
+            
             var actionResult = await controller.GetBlogList(authorInfo);
 
-            // Assert
+            
             var okResult    = actionResult.Should().BeOfType<OkObjectResult>().Subject;
             var blogListDto = okResult.Value.Should().BeOfType<List<BlogDto>>().Subject;
 
@@ -123,7 +123,7 @@ namespace BlogManager.Adapter.Api.Tests
         [Test]
         public async Task GetBlogList_ReturnsBadRequest()
         {
-            // Arrange
+            
             var mediatorMock = new Mock<IMediator>();
             var authorInfo   = true;
 
@@ -132,10 +132,10 @@ namespace BlogManager.Adapter.Api.Tests
 
             var controller = new BlogController(mediatorMock.Object);
 
-            // Act
+            
             var actionResult = await controller.GetBlogList(authorInfo);
 
-            // Assert
+            
             actionResult.Should().BeOfType<BadRequestObjectResult>();
         }
     }

@@ -14,30 +14,29 @@ namespace BlogManager.Adapter.Api.Tests
         [Test]
         public async Task CreateAuthor_ReturnsOkResult()
         {
-            // Arrange
-            // var mediatorMock = new Mock<IMediator>();
-            // var createAuthorCommand = new CreateAuthorCommand("TestName1", "TestSurname1");
-            // var expectedResult = new CreateAuthorResponseDto();
-            //
-            // mediatorMock.Setup(m => m.Send(createAuthorCommand, CancellationToken.None))
-            //             .ReturnsAsync(expectedResult);
-            //
-            // var controller = new AuthorController(mediatorMock.Object);
-            //
-            // // Act
-            // var actionResult = await controller.CreateAuthor(createAuthorCommand);
-            //
-            // // Assert
-            // var okResult = actionResult.Should().BeOfType<OkObjectResult>().Subject;
-            // var authorDto = okResult.Value.Should().BeOfType<CreateAuthorResponseDto>().Subject;
-            //
-            // authorDto.Should().BeEquivalentTo(expectedResult);
+            var mediatorMock = new Mock<IMediator>();
+            var createAuthorCommand = new CreateAuthorCommand("TestName1", "TestSurname1");
+            var expectedResult = new CreateAuthorResponseDto();
+            
+            mediatorMock.Setup(m => m.Send(createAuthorCommand, CancellationToken.None))
+                        .ReturnsAsync(expectedResult);
+            
+            var controller = new AuthorController(mediatorMock.Object);
+            
+            
+            var actionResult = await controller.CreateAuthor(createAuthorCommand);
+            
+            
+            var okResult = actionResult.Should().BeOfType<OkObjectResult>().Subject;
+            var authorDto = okResult.Value.Should().BeOfType<CreateAuthorResponseDto>().Subject;
+            
+            authorDto.Should().BeEquivalentTo(expectedResult);
         }
 
         [Test]
         public async Task GetAuthor_ReturnsOkResult()
         {
-            // Arrange
+            
             var mediatorMock = new Mock<IMediator>();
             var authorId = Guid.NewGuid();
             var expectedResult = new AuthorDto();
@@ -47,10 +46,10 @@ namespace BlogManager.Adapter.Api.Tests
 
             var controller = new AuthorController(mediatorMock.Object);
 
-            // Act
+            
             var actionResult = await controller.GetAuthor(authorId);
 
-            // Assert
+            
             var okResult = actionResult.Should().BeOfType<OkObjectResult>().Subject;
             var authorDto = okResult.Value.Should().BeOfType<AuthorDto>().Subject;
 
@@ -60,7 +59,7 @@ namespace BlogManager.Adapter.Api.Tests
         [Test]
         public async Task GetAuthor_ReturnsBadRequest()
         {
-            // Arrange
+            
             var mediatorMock = new Mock<IMediator>();
             var authorId = Guid.NewGuid();
 
@@ -69,17 +68,17 @@ namespace BlogManager.Adapter.Api.Tests
 
             var controller = new AuthorController(mediatorMock.Object);
 
-            // Act
+            
             var actionResult = await controller.GetAuthor(authorId);
 
-            // Assert
+            
             actionResult.Should().BeOfType<BadRequestObjectResult>();
         }
 
         [Test]
         public async Task GetAuthorList_ReturnsOkResult()
         {
-            // Arrange
+            
             var mediatorMock = new Mock<IMediator>();
             var expectedResult = new List<AuthorDto>();
 
@@ -88,10 +87,10 @@ namespace BlogManager.Adapter.Api.Tests
 
             var controller = new AuthorController(mediatorMock.Object);
 
-            // Act
+            
             var actionResult = await controller.GetAuthorList();
 
-            // Assert
+            
             var okResult = actionResult.Should().BeOfType<OkObjectResult>().Subject;
             var authorListDto = okResult.Value.Should().BeOfType<List<AuthorDto>>().Subject;
 
@@ -101,7 +100,7 @@ namespace BlogManager.Adapter.Api.Tests
         [Test]
         public async Task GetAuthorList_ReturnsBadRequest()
         {
-            // Arrange
+            
             var mediatorMock = new Mock<IMediator>();
 
             mediatorMock.Setup(m => m.Send(It.IsAny<GetAuthorListQuery>(), CancellationToken.None))
@@ -109,10 +108,10 @@ namespace BlogManager.Adapter.Api.Tests
 
             var controller = new AuthorController(mediatorMock.Object);
 
-            // Act
+            
             var actionResult = await controller.GetAuthorList();
 
-            // Assert
+            
             actionResult.Should().BeOfType<BadRequestObjectResult>();
         }
     }

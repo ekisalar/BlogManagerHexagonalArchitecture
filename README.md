@@ -46,7 +46,7 @@ The API project serves as the driver side of the application, while the PostgreS
 - Command and Query Handlers are located in the Core project, which also serves as the access point for Repositories.
 - Application project serves as the entry point and thus has dependencies on all other projects to eliminate the API project's direct dependency on PostgreSQL repositories.
 
-![](/Users/enginkisalar/Desktop/BlogManagerHexagonalArchitecture.png)
+![Project Architecture](/Users/enginkisalar/Desktop/BlogManagerHexagonalArchitecture.png)
 
 ## Test Coverage
 

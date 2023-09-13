@@ -23,7 +23,9 @@ public class CreateBlogCommandHandler : IRequestHandler<CreateBlogCommand, Creat
     {
         var author =  await _authorRepository.GetAuthorByIdAsync(request.AuthorId);
         if (author == null)
+        {   _logger.LogWarning("Blog Created Handler Author not found");
             throw new Exception(ExceptionConstants.AuthorNotFound);
+        }
         var blogToCreate   = await Domain.Blog.CreateAsync(request.AuthorId, request.Title, request.Description, request.Content);
         var blogNewCreated = await _blogRepository.AddBlogAsync(blogToCreate);
         _logger.LogInformation($"Blog with ID {blogNewCreated.Id} created successfully");
