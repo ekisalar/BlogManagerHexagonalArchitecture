@@ -26,8 +26,9 @@ public class BlogCreateTest
     [Test]
     public async Task BlogCreateTest_MustReturnCorrectAuthorId()
     {
-        var blogCommandHandler = new CreateBlogCommandHandler(new BlogRepository(dbContext), mockLogger.Object);
-        var createBlogCommand  = new CreateBlogCommand(Guid.NewGuid(), "Test Title", "Test Description", "Test Content");
+        var blogCommandHandler = new CreateBlogCommandHandler(new BlogRepository(dbContext), mockLogger.Object, new AuthorRepository(dbContext));
+        var author            = dbContext.Authors.First();
+        var createBlogCommand  = new CreateBlogCommand(author.Id, "Test Title", "Test Description", "Test Content");
         var result             = await blogCommandHandler.Handle(createBlogCommand, new CancellationToken());
         result.Should().NotBeNull();
         result.Id.Should().NotBeEmpty();

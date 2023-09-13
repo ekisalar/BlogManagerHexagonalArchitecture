@@ -1,0 +1,20 @@
+# This is a generated file. Not intended for manual editing.
+version: "3"
+services:
+  app:
+    entrypoint:
+    - "/riderDebugger/linux-arm64/dotnet/dotnet"
+    - "/riderDebugger/JetBrains.Debugger.Worker.exe"
+    - "--mode=server"
+    - "--frontend-port=57100"
+    - "--backend-port=57300"
+    environment:
+      RIDER_DEBUGGER_LOG_DIR: "/riderLogs"
+      RESHARPER_LOG_CONF: "/riderLogsConf/backend-log.xml"
+    ports:
+    - "127.0.0.1:57001:57100"
+    - "127.0.0.1:57201:57300"
+    volumes:
+    - "/Users/enginkisalar/.local/share/JetBrains/RiderRemoteDebugger/2023.2.1/LinuxArm64:/riderDebugger"
+    - "/Users/enginkisalar/Library/Application Support/JetBrains/Toolbox/apps/Rider/ch-0/232.9559.61/Rider.app/Contents/bin:/riderLogsConf"
+    - "/Users/enginkisalar/Library/Logs/JetBrains/Rider2023.2/DebuggerWorker/JetBrains.Debugger.Worker.2023_9_13_13_37_50:/riderLogs:rw"

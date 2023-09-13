@@ -10,15 +10,20 @@ public class CreateBlogCommandHandler : IRequestHandler<CreateBlogCommand, Creat
 {
     private readonly IBlogRepository    _blogRepository;
     private readonly IBlogManagerLogger _logger;
+    private readonly IAuthorRepository  _authorRepository;
 
-    public CreateBlogCommandHandler(IBlogRepository blogRepository, IBlogManagerLogger logger)
+    public CreateBlogCommandHandler(IBlogRepository blogRepository, IBlogManagerLogger logger, IAuthorRepository authorRepository)
     {
-        _blogRepository = blogRepository;
-        _logger         = logger;
+        _blogRepository   = blogRepository;
+        _logger           = logger;
+        _authorRepository = authorRepository;
     }
 
     public async Task<CreateBlogResponseDto?> Handle(CreateBlogCommand request, CancellationToken cancellationToken)
     {
+        var author =  await _authorRepository.GetAuthorByIdAsync(request.AuthorId);
+        if (author == null)
+            throw new Exception(ExceptionConstants.AuthorNotFound);
         var blogToCreate   = await Domain.Blog.CreateAsync(request.AuthorId, request.Title, request.Description, request.Content);
         var blogNewCreated = await _blogRepository.AddBlogAsync(blogToCreate);
         _logger.LogInformation($"Blog with ID {blogNewCreated.Id} created successfully");

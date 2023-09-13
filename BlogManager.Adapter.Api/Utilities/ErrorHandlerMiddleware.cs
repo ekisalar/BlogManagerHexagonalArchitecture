@@ -41,7 +41,6 @@ namespace BlogManager.Adapter.Api.Utilities
                         message    = "Unauthorized";
                         break;
 
-                    // ... other custom exception types
 
                     default:
                         statusCode = HttpStatusCode.InternalServerError;
