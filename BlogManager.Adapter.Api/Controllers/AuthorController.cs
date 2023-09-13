@@ -17,28 +17,59 @@ public class AuthorController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAuthor([FromBody] CreateAuthorCommand createAuthorCommand)
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    public async Task<IActionResult> CreateAuthor([FromBody]CreateAuthorCommand createAuthorCommand)
     {
-       var result = await _mediator.Send(createAuthorCommand);
+        var result = await _mediator.Send(createAuthorCommand);
         if (result != null)
             return Ok(result);
 
         return BadRequest("Failed To Create The Author");
     }
     
+    [HttpPost]
+    [Consumes("application/xml")]
+    [Produces("application/xml")]
+    public async Task<IActionResult> CreateAuthorExampleXml([FromBody]CreateAuthorCommand createAuthorCommand)
+    {
+        var result = await _mediator.Send(createAuthorCommand);
+        if (result != null)
+            return Ok(result);
+
+        return BadRequest("Failed To Create The Author");
+    }
+
     [HttpGet]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     public async Task<IActionResult> GetAuthor([FromQuery]Guid id)
     {
         var getBlogByIdQuery = new GetAuthorByIdQuery(id);
         var result           = await _mediator.Send(getBlogByIdQuery);
         if (result != null)
             return Ok(result);
-    
+
         return BadRequest("Failed To Get The Author");
     }
 
     [HttpGet]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     public async Task<IActionResult> GetAuthorList()
+    {
+        var getBlogByIdQuery = new GetAuthorListQuery();
+        var result           = await _mediator.Send(getBlogByIdQuery);
+        if (result != null)
+            return Ok(result);
+
+        return BadRequest("Failed To Get The Author List");
+    }
+    
+    [HttpGet]
+    [Consumes("application/xml")]
+    [Produces("application/xml")]
+    public async Task<IActionResult> GetAuthorListExampleXml()
     {
         var getBlogByIdQuery = new GetAuthorListQuery();
         var result           = await _mediator.Send(getBlogByIdQuery);

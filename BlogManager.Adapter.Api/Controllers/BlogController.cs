@@ -18,6 +18,8 @@ public class BlogController : ControllerBase
     }
 
     [HttpPost]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     public async Task<IActionResult> CreateBlog([FromBody]CreateBlogCommand createBlogCommand)
     {
         var result = await _mediator.Send(createBlogCommand);
@@ -28,6 +30,8 @@ public class BlogController : ControllerBase
     }
 
     [HttpGet]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     public async Task<IActionResult> GetBlog([FromQuery]string id, [FromQuery]bool authorInfo)
     {
         var getBlogByIdQuery = new GetBlogByIdQuery(Guid.Parse(id), authorInfo);
@@ -39,6 +43,8 @@ public class BlogController : ControllerBase
     }
 
     [HttpGet]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     public async Task<IActionResult> GetBlogList([FromQuery]bool authorInfo)
     {
         var getBlogListQuery = new GetBlogListQuery(authorInfo);

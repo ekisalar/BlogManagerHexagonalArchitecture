@@ -1,3 +1,4 @@
+using System.Xml.Serialization;
 using BlogManager.Core.DTOs;
 using MediatR;
 
@@ -11,6 +12,16 @@ public class CreateAuthorCommand : IRequest<CreateAuthorResponseDto?>
         Surname = surname;
     }
 
-    public string Name    { get; set; }
+    //For Xml Serializer
+    public CreateAuthorCommand()
+    {
+    }
+
+    [XmlElement("name")]
+
+    public string Name { get; set; }
+
+    [XmlElement("surname")]
+
     public string Surname { get; set; }
 }

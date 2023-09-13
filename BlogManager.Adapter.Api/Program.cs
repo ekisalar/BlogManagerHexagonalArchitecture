@@ -19,6 +19,7 @@ public class ApiAdapter
         builder.Services.AddControllers()
                .AddApplicationPart(typeof(BlogController).Assembly)
                .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
+               .AddXmlSerializerFormatters()
                .AddJsonOptions(options => { options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; });
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
