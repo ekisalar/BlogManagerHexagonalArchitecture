@@ -25,8 +25,6 @@
 
 The project is built on a Hexagonal (Ports and Adapters) Architecture and is organized into two main folders:
 
-![](image/Screenshot 2023-09-14 at 01.33.01.png)
-
 ### Source Folder (`src`)
 - BlogManager.Core
 - BlogManager.Adapter.Api
@@ -35,10 +33,9 @@ The project is built on a Hexagonal (Ports and Adapters) Architecture and is org
 - BlogManager.Adapter.Logger
 
 ### Test Folder (`test`)
-- BlogManager.Core.Test
+- BlogManager.Core.Tests
 - BlogManager.Adapter.Api.Test
-- BlogManager.Adapter.PostgreSQL.Test
-- BlogManager.Adapter.Logger.Test
+- BlogManager.Adapter.PostgreSQL.Tests
 - BlogManager.Tests.Shared
 
 The API project serves as the driver side of the application, while the PostgreSQL and Logger projects function as the driven sides.
